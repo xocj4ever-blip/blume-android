@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/surface_dark">
+
+    <!-- Quick Symbol / Keyword Shortcuts Bar -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/surface_elevated"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/symbolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symOwned" android:layout_width="wrap_content" android:layout_height="32dp" android:text="owned" android:textColor="@color/arc_green" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symShared" android:layout_width="wrap_content" android:layout_height="32dp" android:text="shared" android:textColor="@color/gc_cyan" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symWeak" android:layout_width="wrap_content" android:layout_height="32dp" android:text="weak" android:textColor="@color/bridge_amber" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symFn" android:layout_width="wrap_content" android:layout_height="32dp" android:text="fn" android:textColor="@color/blume_pink" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symClass" android:layout_width="wrap_content" android:layout_height="32dp" android:text="class" android:textColor="@color/blume_pink" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symArrow" android:layout_width="wrap_content" android:layout_height="32dp" android:text="->" android:textColor="@color/text_primary" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symBraces" android:layout_width="wrap_content" android:layout_height="32dp" android:text="{ }" android:textColor="@color/text_primary" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symParens" android:layout_width="wrap_content" android:layout_height="32dp" android:text="( )" android:textColor="@color/text_primary" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symRange" android:layout_width="wrap_content" android:layout_height="32dp" android:text=".." android:textColor="@color/text_primary" />
+            <Button style="@style/Widget.Material3.Button.TextButton" android:id="@+id/symColon" android:layout_width="wrap_content" android:layout_height="32dp" android:text=":" android:textColor="@color/text_primary" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Editor Scroll Container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <com.blume.studio.ui.CodeEditorView
+            android:id="@+id/editor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:padding="16dp"
+            android:hint="// Write or paste Blume code here..."
+            android:textColorHint="@color/text_disabled"
+            android:inputType="textMultiLine|textNoSuggestions" />
+    </ScrollView>
+
+</LinearLayout>

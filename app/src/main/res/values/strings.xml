@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Blume Studio</string>
+    <string name="tagline">One Language. Two Memory Models. One Unified IR.</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_editor">Editor</string>
+    <string name="tab_console">Console</string>
+    <string name="tab_memory">Memory</string>
+    <string name="tab_mir">MIR</string>
+    <string name="tab_repl">REPL</string>
+
+    <!-- Actions -->
+    <string name="action_run">Run</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_examples">Examples</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_collect_gc">Collect GC</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_format">Format</string>
+    <string name="action_share">Share</string>
+
+    <!-- Memory Dashboard -->
+    <string name="memory_title">Hybrid Memory Coordinator (ARC + GC)</string>
+    <string name="arc_live_objects">ARC Live Objects</string>
+    <string name="arc_deallocated">ARC Deallocations</string>
+    <string name="gc_live_objects">GC Live Objects</string>
+    <string name="gc_cycles_collected">GC Cycles Collected</string>
+    <string name="active_bridges">Active Bridges</string>
+    <string name="arc_heap_heading">Swift-Inspired ARC Heap (Deterministic)</string>
+    <string name="gc_heap_heading">Kotlin-Inspired GC Heap (Cycle Collector)</string>
+
+    <!-- Status -->
+    <string name="status_ready">Ready</string>
+    <string name="status_running">Running…</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_error">Execution Error</string>
+</resources>

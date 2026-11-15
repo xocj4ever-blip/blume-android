@@ -1,0 +1,26 @@
+// Blume Example 01: Hello World & Fundamentals
+// Demonstrates basic syntax, types, functions, and control flow.
+
+fn greet(name: String) -> Void {
+    print("Welcome to Blume, " + name + "!")
+}
+
+fn fibonacci(n: Int) -> Int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+print("=== Blume Language Tour ===")
+greet("Developer")
+
+let num: Int = 10
+let fibResult: Int = fibonacci(num)
+print("Fibonacci(10) is: " + fibResult)
+
+var sum: Int = 0
+for i in 0..5 {
+    sum += i
+}
+print("Sum of 0..4 is: " + sum)

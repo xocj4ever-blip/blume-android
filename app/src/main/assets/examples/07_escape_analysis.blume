@@ -1,0 +1,26 @@
+// Blume Example 07: Escape Analysis & Automatic Memory Strategy Selection
+// Demonstrates how the compiler selects between ARC and GC for 'automatic' allocations.
+
+class LocalWorker {
+    var id: Int
+    init(id: Int) {
+        self.id = id
+        print("[LocalWorker] Created worker #" + self.id)
+    }
+    deinit {
+        print("[LocalWorker] DEINIT: Worker #" + self.id + " deallocated.")
+    }
+}
+
+fn testAutomaticStrategy() -> Void {
+    print("\n--- Testing Automatic Memory Strategy Selection ---")
+    // 'automatic' is the default if ownership is omitted
+    automatic let worker = LocalWorker(99)
+    print("Inferred Memory Domain: " + blume_memory_domain(worker))
+    print("Inferred Retain Count: " + blume_retain_count(worker))
+    print("Exiting testAutomaticStrategy scope (Deterministic Deinit Expected)...")
+}
+
+print("=== Blume Compiler Strategy Selection (Escape Analysis) ===")
+testAutomaticStrategy()
+print("Automatic strategy verified: ARC chosen for deterministic local lifetime!\n")

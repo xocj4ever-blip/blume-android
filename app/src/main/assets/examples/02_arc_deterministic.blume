@@ -1,0 +1,57 @@
+// Blume Example 02: Swift-Inspired Automatic Reference Counting (ARC)
+// Demonstrates deterministic object lifetime, retain counts, and deinit callbacks.
+
+owned class FileHandle {
+    var filename: String
+    var isOpen: Bool
+
+    init(name: String) {
+        self.filename = name
+        self.isOpen = true
+        print("[FileHandle] Initialized & opened: " + self.filename)
+    }
+
+    fn write(msg: String) -> Void {
+        if self.isOpen {
+            print("[FileHandle:" + self.filename + "] Writing -> " + msg)
+        }
+    }
+
+    deinit {
+        print("[FileHandle] DEINIT: Deterministically closing & freeing: " + self.filename)
+        self.isOpen = false
+    }
+}
+
+print("=== Swift-Inspired ARC in Blume ===")
+
+// 1. Single ownership and retain count
+{
+    print("\n--- Entering Local Scope 1 ---")
+    let f1: owned FileHandle = FileHandle("network.log")
+    f1.write("Packet received")
+    print("f1 retain count: " + blume_retain_count(f1))
+    print("f1 memory domain: " + blume_memory_domain(f1))
+    print("--- Exiting Local Scope 1 (Deterministic Deinit Expected Below) ---")
+}
+print("Successfully verified: FileHandle deallocated deterministically at scope exit!\n")
+
+// 2. Shared reference counting between multiple variables
+{
+    print("--- Entering Local Scope 2 (Multiple Retains) ---")
+    var master: owned FileHandle = FileHandle("database.db")
+    print("Initial master retain count: " + blume_retain_count(master))
+
+    {
+        print("  [Inner Scope] Aliasing master to replica...")
+        var replica: owned FileHandle = master
+        print("  master retain count after replica alias: " + blume_retain_count(master))
+        replica.write("Writing via replica")
+        print("  [Inner Scope] Exiting inner scope...")
+    }
+
+    print("master retain count after replica exited: " + blume_retain_count(master))
+    master.write("Writing via master")
+    print("--- Exiting Local Scope 2 ---")
+}
+print("Scope 2 closed: master deterministically freed!\n")

@@ -1,0 +1,41 @@
+// Blume Example 03: Kotlin-Inspired Tracing Garbage Collection (Cycle Collection)
+// Demonstrates automatic reference cycle collection for shared object graphs.
+
+shared class Node {
+    var id: Int
+    var next: Node?
+
+    init(id: Int) {
+        self.id = id
+        print("[GC Node] Allocated shared node #" + self.id)
+    }
+
+    deinit {
+        print("[GC Node] Swept & collected node #" + self.id)
+    }
+}
+
+print("=== Kotlin-Inspired Tracing GC in Blume ===")
+
+// Create a cyclic graph: A -> B -> C -> A
+{
+    print("\n--- Allocating Cyclic Graph inside Scope ---")
+    let a: shared Node = Node(1)
+    let b: shared Node = Node(2)
+    let c: shared Node = Node(3)
+
+    // Form cycle: 1 -> 2 -> 3 -> 1
+    a.next = b
+    b.next = c
+    c.next = a
+
+    print("Formed reference cycle: Node(1) -> Node(2) -> Node(3) -> Node(1)")
+    print("Under pure ARC, this cycle would LEAK memory forever.")
+    print("In Blume, 'shared' marks this graph for Kotlin-inspired Tracing GC.")
+    print("--- Scope Ending (Stack Roots Unregistered) ---")
+}
+
+print("\n--- Running Tracing GC Collection (blume_gc_collect) ---")
+let collectedCount: Int = blume_gc_collect()
+print("GC Mark-and-Sweep successfully collected " + collectedCount + " cyclic nodes!")
+print("Cycle collection verified successfully!\n")

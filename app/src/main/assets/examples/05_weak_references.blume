@@ -1,0 +1,55 @@
+// Blume Example 05: Weak References (ARC Cycle Prevention)
+// Demonstrates Swift-style weak references that automatically nil out on deallocation.
+
+owned class Window {
+    var title: String
+
+    init(t: String) {
+        self.title = t
+        print("[Window] Created window: " + self.title)
+    }
+
+    deinit {
+        print("[Window] DEINIT: Window destroyed: " + self.title)
+    }
+}
+
+owned class Button {
+    var label: String
+    weak var parentWindow: Window?
+
+    init(lbl: String) {
+        self.label = lbl
+        self.parentWindow = nil
+        print("[Button] Created button: " + self.label)
+    }
+
+    fn checkParent() -> Void {
+        if self.parentWindow != nil {
+            print("[Button:" + self.label + "] Parent window is ALIVE.")
+        } else {
+            print("[Button:" + self.label + "] Parent window has been DEALLOCATED (auto-nilified weak ref)!")
+        }
+    }
+
+    deinit {
+        print("[Button] DEINIT: Button destroyed: " + self.label)
+    }
+}
+
+print("=== Swift-Inspired Weak References in Blume ===")
+
+let btn: owned Button = Button("Submit")
+
+{
+    print("\n--- Inner Scope: Window Created ---")
+    let win: owned Window = Window("MainWindow")
+    btn.parentWindow = weak(win)
+
+    btn.checkParent()
+    print("--- Inner Scope Ending (Window will be deallocated) ---")
+}
+
+print("\n--- Outer Scope: After Window Deallocation ---")
+btn.checkParent()
+print("Weak reference successfully prevented cycle and safely nilified!\n")

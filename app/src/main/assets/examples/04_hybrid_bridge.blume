@@ -1,0 +1,65 @@
+// Blume Example 04: Unified Hybrid Memory & Cross-Domain Bridge
+// Demonstrates cross-domain reference coordination between ARC and GC (blume.bridge).
+
+// 1. ARC-managed object
+owned class SessionManager {
+    var name: String
+    var dataGraph: GraphNode?
+
+    init(name: String) {
+        self.name = name
+        print("[ARC Session] Initialized: " + self.name)
+    }
+
+    deinit {
+        print("[ARC Session] DEINIT: Freeing session " + self.name)
+    }
+}
+
+// 2. GC-managed object
+shared class GraphNode {
+    var label: String
+    var next: GraphNode?
+
+    init(lbl: String) {
+        self.label = lbl
+        print("  [GC GraphNode] Allocated: " + self.label)
+    }
+
+    deinit {
+        print("  [GC GraphNode] Collected: " + self.label)
+    }
+}
+
+print("=== Blume Hybrid Memory Architecture: Unified Bridge ===")
+print("Tagline: One Language. Two Memory Models. One Unified IR.\n")
+
+// Test Scenario 1: ARC object holds GC graph via blume.bridge
+{
+    print("--- Test 1: ARC Object Holding GC Graph ---")
+    let session: owned SessionManager = SessionManager("UserSession_42")
+
+    {
+        // Allocate GC graph in nested scope
+        let nodeA: shared GraphNode = GraphNode("NodeA")
+        let nodeB: shared GraphNode = GraphNode("NodeB")
+        nodeA.next = nodeB
+        nodeB.next = nodeA // cyclic
+
+        // Bridge reference: ARC session holds GC root node
+        session.dataGraph = nodeA
+        print("Bridged GC NodeA to ARC session.dataGraph via blume.bridge")
+        print("Exiting nested scope; nodeA and nodeB stack variables are gone.")
+    }
+
+    print("\nTriggering GC while ARC session is still ALIVE:")
+    let sweptCount1: Int = blume_gc_collect()
+    print("GC swept count: " + sweptCount1 + " (Expect 0: kept alive by ARC Bridge Root)")
+
+    print("\nNow exiting session scope...")
+}
+
+print("\nSession destroyed! Now triggering GC again:")
+let sweptCount2: Int = blume_gc_collect()
+print("GC swept count: " + sweptCount2 + " (Expect 2: Bridge Root released with Session)")
+print("Cross-domain bridge coordination verified successfully!\n")

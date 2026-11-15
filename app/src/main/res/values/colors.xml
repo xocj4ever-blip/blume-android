@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand / Theme Palette -->
+    <color name="blume_pink">#FF4081</color>
+    <color name="blume_pink_light">#FF80AB</color>
+    <color name="blume_pink_dark">#C51162</color>
+    <color name="blume_plum">#26152B</color>
+    <color name="blume_plum_dark">#180D1C</color>
+
+    <!-- Dark Theme Backgrounds & Surfaces -->
+    <color name="surface_dark">#15161C</color>
+    <color name="surface_elevated">#1E202A</color>
+    <color name="surface_card">#272A38</color>
+    <color name="text_primary">#F4F4F8</color>
+    <color name="text_secondary">#A0A4B8</color>
+    <color name="text_disabled">#606478</color>
+    <color name="border_subtle">#353849</color>
+
+    <!-- Memory Domain Colors -->
+    <color name="arc_green">#00E676</color>
+    <color name="arc_green_dark">#009624</color>
+    <color name="gc_cyan">#00E5FF</color>
+    <color name="gc_cyan_dark">#0097A7</color>
+    <color name="bridge_amber">#FFD600</color>
+    <color name="bridge_amber_dark">#FFAB00</color>
+
+    <!-- Editor Syntax Highlighting -->
+    <color name="syntax_keyword">#FF4081</color>
+    <color name="syntax_ownership">#00E5FF</color>
+    <color name="syntax_string">#A7E22E</color>
+    <color name="syntax_number">#FD971F</color>
+    <color name="syntax_comment">#75715E</color>
+    <color name="syntax_type">#66D9EF</color>
+    <color name="syntax_function">#A6E22E</color>
+</resources>

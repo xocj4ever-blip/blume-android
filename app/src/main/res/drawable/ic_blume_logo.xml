@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#26152B"
+        android:pathData="M54,54m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0" />
+
+    <!-- Cherry Blossom Petals (Blume 🌸 Logo) -->
+    <!-- Top Petal -->
+    <path
+        android:fillColor="#FF4081"
+        android:pathData="M54,20 C58,30 64,38 54,50 C44,38 50,30 54,20 Z" />
+    <!-- Top-Right Petal -->
+    <path
+        android:fillColor="#FF80AB"
+        android:pathData="M82,42 C74,48 64,50 54,50 C58,40 70,36 82,42 Z" />
+    <!-- Bottom-Right Petal -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M72,78 C64,74 58,62 54,50 C66,54 74,66 72,78 Z" />
+    <!-- Bottom-Left Petal -->
+    <path
+        android:fillColor="#00E676"
+        android:pathData="M36,78 C34,66 42,54 54,50 C50,62 44,74 36,78 Z" />
+    <!-- Top-Left Petal -->
+    <path
+        android:fillColor="#FFD600"
+        android:pathData="M26,42 C38,36 50,40 54,50 C44,50 34,48 26,42 Z" />
+
+    <!-- Center Core -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,54m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+</vector>

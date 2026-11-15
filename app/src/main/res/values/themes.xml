@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Application Theme (Material 3 Dark) -->
+    <style name="Theme.BlumeStudio" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/blume_pink</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/gc_cyan</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorTertiary">@color/arc_green</item>
+        <item name="android:statusBarColor">@color/blume_plum_dark</item>
+        <item name="android:navigationBarColor">@color/blume_plum_dark</item>
+        <item name="android:windowBackground">@color/surface_dark</item>
+        <item name="colorSurface">@color/surface_elevated</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+    </style>
+</resources>

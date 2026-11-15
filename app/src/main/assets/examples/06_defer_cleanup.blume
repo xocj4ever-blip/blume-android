@@ -1,0 +1,52 @@
+// Blume Example 06: Defer Statements (Deterministic Scope Teardown)
+// Demonstrates LIFO execution order of deferred cleanup blocks.
+
+owned class DatabaseConnection {
+    var dsn: String
+
+    init(dsn: String) {
+        self.dsn = dsn
+        print("[DB] Connected to: " + self.dsn)
+    }
+
+    fn query(sql: String) -> Void {
+        print("[DB:" + self.dsn + "] Executing query: " + sql)
+    }
+
+    deinit {
+        print("[DB] DEINIT: Connection closed to: " + self.dsn)
+    }
+}
+
+fn processTransaction(shouldFail: Bool) -> Void {
+    print("\n--- Starting processTransaction ---")
+    let conn: owned DatabaseConnection = DatabaseConnection("postgres://localhost:5432/main")
+
+    defer {
+        print("  [Defer 1] Committing or rolling back transaction...")
+    }
+
+    defer {
+        print("  [Defer 2] Releasing connection lock...")
+    }
+
+    conn.query("SELECT * FROM accounts FOR UPDATE")
+
+    if shouldFail {
+        print("  [Error detected] Aborting transaction early!")
+        return
+    }
+
+    conn.query("UPDATE accounts SET balance = balance - 100")
+    print("--- Transaction Finished Normally ---")
+}
+
+print("=== Swift-Inspired Defer Statements in Blume ===")
+
+// Case 1: Early return on error - defers still execute in LIFO order!
+processTransaction(true)
+
+// Case 2: Normal completion - defers execute in LIFO order
+processTransaction(false)
+
+print("\nAll deferred cleanup operations verified successfully!")
